@@ -18,7 +18,7 @@ spec:
 
   template:
     metadata:
-      name: "team-a-apps-{{name}}"
+      name: 'team-a-apps-{{.name}}'
       labels:
         environment: '{{.metadata.labels.env}}'
         parent-argocd-app: 'team-a-apps'
@@ -27,7 +27,7 @@ spec:
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
         targetRevision: HEAD
-        path: manifests/team-a/{{.metadata.labels.env}}
+        path: 'manifests/team-a/{{.metadata.labels.env}}'
         kustomize:
           namePrefix: 'team-a-{{.metadata.labels.env}}-'
           patches:
@@ -37,7 +37,7 @@ spec:
               patch: |-
                 spec:
                   destination:
-                    server: {{server}}
+                    server: {{.server}}
                   syncPolicy:
                     automated:
                       prune: true
