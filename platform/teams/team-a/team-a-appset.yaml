@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: team-a-apps
+  namespace: argocd
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            team: team-a
+            env: production
+
+    - clusters:
+        selector:
+          matchLabels:
+            env: staging
+
+  template:
+    metadata:
+      name: "team-a-apps-{{name}}"
+      labels:
+        environment: '{{.metadata.labels.env}}'
+        parent-argocd-app: 'team-a-apps'
+    spec:
+      project: default
+      source:
+        repoURL: git@github.com:lowc1012/argo-lab.git
+        targetRevision: HEAD
+        path: manifests/team-a/{{.metadata.labels.env}}
+        kustomize:
+          namePrefix: 'team-a-{{.metadata.labels.env}}-'
+          patches:
+            - target:
+                kind: Application
+                labelSelector: parent-argocd-app=team-a-apps'
+              patch: |-
+                spec:
+                  destination:
+                    server: {{server}}
+                  syncPolicy:
+                    automated:
+                      prune: true
+                      selfHeal: true
+                    syncOptions:
+                      - CreateNamespace=true
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
