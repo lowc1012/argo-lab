@@ -18,7 +18,7 @@ spec:
               addonChartVersion: '2.0.0'
               addonChartRepository: https://argoproj.github.io/argo-helm
         - git:
-            repoURL: git@github.com:payfazz/app-manifests.git
+            repoURL: git@github.com:lowc1012/argo-lab.git
             revision: HEAD
             directories:
               - path: 'teams/*'
@@ -31,8 +31,8 @@ spec:
     spec:
       project: default
       sources:
-        - repoURL: git@github.com:payfazz/app-manifests.git
-          targetRevision: git@github.com:payfazz/app-manifests.git
+        - repoURL: git@github.com:lowc1012/argo-lab.git
+          targetRevision: git@github.com:lowc1012/argo-lab.git
           ref: values
         - chart: '{{values.addonChart}}'
           repoURL: '{{values.addonChartRepository}}'
