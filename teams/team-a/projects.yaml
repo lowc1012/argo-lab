@@ -1,0 +1,19 @@
+projects:
+  team-a:
+    namespace: argocd
+    description: ArgoCD project for the ArgoCD apps owned by team-a
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
+    destinations:
+      - namespace: team-a
+        server: https://kubernetes.default.svc
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    namespaceResourceWhitelist:
+      - group: "*"
+        kind: "*"
+    sourceRepos:
+      - git@github.com:lowc1012/argo-lab.git
+    additionalLabels: {}
+    additionalAnnotations: {}

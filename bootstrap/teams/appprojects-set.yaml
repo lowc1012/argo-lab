@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argoprojects
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+  - matrix:
+      generators:
+        - clusters:
+            selector:
+              matchLabels:
+                environment: control-plane
+            values:
+              addonChart: argocd-apps
+              addonChartVersion: '2.0.0'
+              addonChartRepository: https://argoproj.github.io/argo-helm
+        - git:
+            repoURL: git@github.com:payfazz/app-manifests.git
+            revision: HEAD
+            directories:
+              - path: 'teams/*'
+  template:
+    metadata:
+      name: 'argoprojects-{{path.basename}}'
+      labels:
+        environment: '{{metadata.labels.environment}}'
+        team: '{{path.basename}}'
+    spec:
+      project: default
+      sources:
+        - repoURL: git@github.com:payfazz/app-manifests.git
+          targetRevision: git@github.com:payfazz/app-manifests.git
+          ref: values
+        - chart: '{{values.addonChart}}'
+          repoURL: '{{values.addonChartRepository}}'
+          targetRevision: '{{values.addonChartVersion}}'
+          helm:
+            releaseName: 'argoprojects-{{path.basename}}'
+            valueFiles:
+              - '$values/teams/{{path.basename}}/projects.yaml'
+      destination:
+        name: '{{name}}'
+        namespace: argocd
+      syncPolicy:
+        automated:
+          allowEmpty: true
+        retry:
+          backoff:
+            duration: 1m
+          limit: 100
+        syncOptions:
+          - CreateNamespace=true

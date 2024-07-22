@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argo-bootstrap
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - list:
+        elements:
+          - cluster: in-cluster
+            url: https://kubernetes.default.svc
+
+  template:
+    metadata:
+      name: argo-bootstrap
+    spec:
+      project: default
+      sources:
+        - repoURL: git@github.com:lowc1012/argo-lab.git
+          path: bootstrap/teams
+          targetRevision: HEAD
+
+        - repoURL: git@github.com:lowc1012/argo-lab.git
+          path: bootstrap/apps
+          targetRevision: HEAD
+          directory:
+            recurse: true
+
+      destination:
+        namespace: argocd
+        name: '{{name}}'
+
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: false
