@@ -4,7 +4,7 @@ metadata:
   name: nginx
   namespace: argocd
 spec:
-  project: default
+  project: team-a
   sources:
     - repoURL: git@github.com:lowc1012/argo-lab.git
       path: charts/nginx
