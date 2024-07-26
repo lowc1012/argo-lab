@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: staging-apps
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - matrix:
+        generators:
+          - clusters:
+              selector:
+                matchLabels:
+                  team: all
+                  env: staging
+
+          - git:
+              repoURL: git@github.com:lowc1012/argo-lab.git
+              revision: HEAD
+              directories:
+                - path: 'apps/*'
+
+  template:
+    metadata:
+      name: '{{path.basename}}-{{metadata.labels.env}}-apps'
+    spec:
+      project: '{{path.basename}}'
+      source:
+        repoURL: git@github.com:lowc1012/argo-lab.git
+        path: 'apps/{{path.basename}}/{{metadata.labels.env}}'
+        targetRevision: HEAD
+      directory:
+        recurse: true
+      destination:
+        name: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          allowEmpty: true
+          prune: true
+        retry:
+          backoff:
+            duration: 1m
+          limit: 100
