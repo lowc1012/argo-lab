@@ -10,12 +10,12 @@ spec:
       path: charts/nginx
       targetRevision: HEAD
       helm:
-        releaseName: nginx
         valueFiles:
           - $values/apps/team-a/staging/nginx/values.yaml
     - repoURL: git@github.com:lowc1012/argo-lab.git
       targetRevision: HEAD
       ref: values
-  
+
   destination:
     namespace: nginx
+    name: in-cluster

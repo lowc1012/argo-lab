@@ -1,0 +1,4 @@
+namePrefix: "staging-"
+
+resources:
+  - nginx/argo-app.yaml
