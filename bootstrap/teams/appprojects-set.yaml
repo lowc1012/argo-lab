@@ -26,7 +26,7 @@ spec:
     metadata:
       name: 'argoprojects-{{path.basename}}'
       labels:
-        environment: '{{metadata.labels.environment}}'
+        environment: '{{metadata.labels.env}}'
         team: '{{path.basename}}'
     spec:
       project: default
