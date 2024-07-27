@@ -12,7 +12,7 @@ spec:
         - clusters:
             selector:
               matchLabels:
-                environment: control-plane
+                env: staging
             values:
               addonChart: argocd-apps
               addonChartVersion: '2.0.0'
