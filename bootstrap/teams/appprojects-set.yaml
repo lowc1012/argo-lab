@@ -32,13 +32,12 @@ spec:
       project: default
       sources:
         - repoURL: git@github.com:lowc1012/argo-lab.git
-          targetRevision: git@github.com:lowc1012/argo-lab.git
+          targetRevision: HEAD
           ref: values
         - chart: '{{values.addonChart}}'
           repoURL: '{{values.addonChartRepository}}'
           targetRevision: '{{values.addonChartVersion}}'
           helm:
-            releaseName: 'argoprojects-{{path.basename}}'
             valueFiles:
               - '$values/teams/{{path.basename}}/projects.yaml'
       destination:
