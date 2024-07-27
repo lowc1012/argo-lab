@@ -31,8 +31,8 @@ spec:
         path: 'apps/{{path.basename}}/{{metadata.labels.env}}'
         targetRevision: HEAD
       destination:
-        server: https://kubernetes.default.svc
-        namespace: argocd
+        name: '{{name}}'
+        namespace: '{{path.basename}}'
       syncPolicy:
         automated:
           allowEmpty: true
