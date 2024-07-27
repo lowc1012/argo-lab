@@ -16,6 +16,11 @@ spec:
       targetRevision: HEAD
       ref: values
 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
   destination:
     namespace: nginx
     name: in-cluster
