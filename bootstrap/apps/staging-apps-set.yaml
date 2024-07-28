@@ -43,7 +43,7 @@ spec:
         path: '{{.matrix.app.path.path}}'
         targetRevision: HEAD
       destination:
-        name: '{{.cluster.name}}'
+        name: '{{.clusters.name}}'
         namespace: argocd
       syncPolicy:
         syncOptions:
