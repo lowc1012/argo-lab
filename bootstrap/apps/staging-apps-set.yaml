@@ -18,7 +18,7 @@ spec:
                 - path: 'teams/*'
               values:
                 env: staging
-                team: '{{path.basename}}'
+                team: '{{.path.basename}}'
 
           - git:
               repoURL: git@github.com:lowc1012/argo-lab.git
