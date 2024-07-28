@@ -15,7 +15,7 @@ spec:
             team: all
             env: staging
         values:
-          cluster-name: '{{.name}}'
+          clustername: '{{.name}}'
     - matrix:
         generators:
           - git:
@@ -34,7 +34,7 @@ spec:
 
   template:
     metadata:
-      name: '{{.values.clusters-name}}-{{.team.path.basename}}-{{.app.path.basename}}'
+      name: '{{.values.clustername}}-{{.team.path.basename}}-{{.app.path.basename}}'
       labels:
         environment: staging
         team: '{{.team.path.basename}}'
@@ -45,7 +45,7 @@ spec:
         path: '{{.app.path.path}}'
         targetRevision: HEAD
       destination:
-        name: '{{.values.clusters-name}}'
+        name: '{{.values.clustername}}'
         namespace: argocd
       syncPolicy:
         syncOptions:
