@@ -6,6 +6,8 @@ metadata:
 spec:
   syncPolicy:
     preserveResourcesOnDeletion: true
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix:
         generators:
