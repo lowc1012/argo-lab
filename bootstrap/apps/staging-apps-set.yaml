@@ -18,7 +18,7 @@ spec:
                 - path: 'teams/*'
               pathParamPrefix: team
               values:
-                team: '{{.path.basename}}'
+                team: '{{path.basename}}'
           - git:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
