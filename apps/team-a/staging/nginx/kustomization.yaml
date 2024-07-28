@@ -1,6 +1,8 @@
 helmGlobals:
   chartHome: ../../../../charts
 
+namePrefix: staging-
+
 helmCharts:
   - name: "nginx"
     version: "0.1.0"

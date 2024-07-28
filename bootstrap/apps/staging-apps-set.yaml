@@ -32,7 +32,9 @@ spec:
     metadata:
       # staging-team-a-nginx
       name: '{{.values.env}}-{{.values.team}}-{{.app.path.basename}}'
-      environment: '{{.values.env}}'
+      labels:
+        environment: '{{.values.env}}'
+        team: '{{.values.team}}'
     spec:
       project: '{{.values.team}}'
       source:
