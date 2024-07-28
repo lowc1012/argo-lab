@@ -42,8 +42,8 @@ spec:
         path: 'apps/{{.values.team}}/{{.values.env}}/{{.app.path.basename}}'
         targetRevision: HEAD
       destination:
-        name: in-cluster
-        namespace: '{{.app.path.basename}}'
+        server: https://kubernetes.default.svc
+        namespace: argocd
       syncPolicy:
         syncOptions:
           - CreateNamespace=true 
