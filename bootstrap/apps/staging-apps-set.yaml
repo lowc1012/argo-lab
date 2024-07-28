@@ -23,7 +23,7 @@ spec:
 
   template:
     metadata:
-      name: '{{path.basename}}-{{metadata.labels.env}}-apps'
+      name: '{{metadata.labels.env}}-{{path.basename}}-apps'
     spec:
       project: '{{path.basename}}'
       source:
@@ -34,9 +34,11 @@ spec:
         name: '{{name}}'
         namespace: '{{path.basename}}'
       syncPolicy:
+        syncOptions:
+          - CreateNamespace=true 
         automated:
-          allowEmpty: true
           prune: true
+          selfHeal: true
         retry:
           backoff:
             duration: 1m

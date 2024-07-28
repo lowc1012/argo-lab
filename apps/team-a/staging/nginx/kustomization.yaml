@@ -1,0 +1,7 @@
+helmCharts:
+  - name: "nginx"
+    repo: git@github.com:lowc1012/argo-lab.git
+    version: "0.1.0"
+    releaseName: nginx
+    namespace: nginx
+    valuesFile: values.yaml
