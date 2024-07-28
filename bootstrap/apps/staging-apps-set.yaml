@@ -17,14 +17,13 @@ spec:
               directories:
                 - path: "apps/*"
               pathParamPrefix: team
-          - merge:
+          - matrix:
               generators:
                 - clusters:
                     selector:
                       matchLabels:
+                        team: all
                         env: staging
-                    values:
-                      selector: '{{index .metadata.labels "team"}}'
                 - git:
                     repoURL: git@github.com:lowc1012/argo-lab.git
                     revision: HEAD
@@ -32,19 +31,19 @@ spec:
                       - path: "apps/{{.team.path.basename}}/staging/*"
                     pathParamPrefix: app
                     values:
-                      selector: '{{.team.path.basename}}'
+                      team: '{{.team.path.basename}}'
 
   template:
     metadata:
-      name: "{{.name}}-{{.values.selector}}-{{.app.path.basename}}"
+      name: "{{.name}}-{{.values.team}}-{{.app.path.basename}}"
       labels:
         environment: staging
-        team: "{{.values.selector}}"
+        team: "{{.values.team}}"
     spec:
-      project: "{{.values.selector}}"
+      project: "{{.values.team}}"
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: "apps/{{.values.selector}}/staging/{{.app.path.basename}}"
+        path: "apps/{{.values.team}}/staging/{{.app.path.basename}}"
         targetRevision: HEAD
       destination:
         name: "{{.name}}"
