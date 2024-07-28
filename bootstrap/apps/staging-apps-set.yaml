@@ -29,25 +29,21 @@ spec:
               directories:
                 - path: 'apps/{{.team.path.basename}}/staging/*'
               pathParamPrefix: app
-        values:
-          team: '{{.team.path.basename}}'
-          app: '{{.app.path.basename}}'
 
   template:
     metadata:
-      # staging-team-a-nginx
-      name: 'cluster-{{.values.team}}-{{.values.app}}'
+      name: '{{.generators.clusters.name}}-{{.team.path.basename}}-{{.app.path.basename}}'
       labels:
         environment: staging
-        team: '{{.values.team}}'
+        team: '{{.team.path.basename}}'
     spec:
-      project: '{{.values.team}}'
+      project: '{{.team.path.basename}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: 'apps/{{.values.team}}/staging/{{.values.app}}'
+        path: '{{.app.path.path}}'
         targetRevision: HEAD
       destination:
-        name: in-cluster
+        name: '{{.generators.clusters.name}}'
         namespace: argocd
       syncPolicy:
         syncOptions:
