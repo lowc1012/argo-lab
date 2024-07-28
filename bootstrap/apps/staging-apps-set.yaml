@@ -9,31 +9,35 @@ spec:
   generators:
     - matrix:
         generators:
-          - clusters:
-              selector:
-                matchLabels:
-                  team: all
-                  env: staging
+          - git:
+              repoURL: git@github.com:lowc1012/argo-lab.git
+              revision: HEAD
+              directories:
+                - path: 'teams/*'
+              values:
+                env: staging
+                team: '{{path.basename}}'
 
           - git:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
               directories:
-                - path: 'apps/*/staging/*'
+                - path: 'apps/{{values.team}}/staging/*'
 
   template:
     metadata:
       # staging-team-a-nginx
-      name: '{{metadata.labels.env}}-{{index path.segments 1}}-{{path.basename}}'
+      name: '{{values.env}}-{{values.team}}-{{generators.1.path.basename}}'
+      environment: {{values.env}}
     spec:
-      project: team-a
+      project: '{{values.team}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: 'apps/{{index path.segments 1}}/{{metadata.labels.env}}/{{path.basename}}'
+        path: 'apps/{{values.team}}/{{values.env}}/{{generators.1.path.basename}}'
         targetRevision: HEAD
       destination:
         name: '{{name}}'
-        namespace: '{{path.basename}}'
+        namespace: '{{generators.1.path.basename}}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true 
