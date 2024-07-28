@@ -29,22 +29,22 @@ spec:
               directories:
                 - path: 'apps/{{.team.path.basename}}/staging/*'
               pathParamPrefix: app
-              values:
-                team: '{{.team.path.basename}}'
-                app: '{{.app.path.basename}}'
+        values:
+          team: '{{.team.path.basename}}'
+          app: '{{.app.path.basename}}'
 
   template:
     metadata:
       # staging-team-a-nginx
-      name: '{{.name}}-{{.values.team}}-{{.values.app}}'
+      name: '{{.name}}-{{values.team}}-{{values.app}}'
       labels:
         environment: staging
-        team: '{{.values.team}}'
+        team: '{{values.team}}'
     spec:
-      project: '{{.values.team}}'
+      project: '{{values.team}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: 'apps/{{.values.team}}/{{.values.env}}/{{.values.app}}'
+        path: 'apps/{{values.team}}/{{values.env}}/{{values.app}}'
         targetRevision: HEAD
       destination:
         server: https://kubernetes.default.svc
