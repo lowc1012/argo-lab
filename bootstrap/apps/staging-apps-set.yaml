@@ -23,15 +23,14 @@ spec:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
               directories:
-                - path: 'apps/*'
-              pathParamPrefix: team
-                
+                - path: 'apps/{{.team.path.basename}}/staging/*'
+              pathParamPrefix: app
           - git:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
               directories:
-                - path: 'apps/{{.team.path.basename}}/staging/*'
-              pathParamPrefix: app
+                - path: 'apps/*'
+              pathParamPrefix: team
 
   template:
     metadata:
