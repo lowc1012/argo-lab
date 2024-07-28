@@ -30,7 +30,7 @@ spec:
     metadata:
       # staging-team-a-nginx
       name: '{{values.env}}-{{values.team}}-{{generators.1.path.basename}}'
-      environment: {{values.env}}
+      environment: '{{values.env}}'
     spec:
       project: '{{values.team}}'
       source:
