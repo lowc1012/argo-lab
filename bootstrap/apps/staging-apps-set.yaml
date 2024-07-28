@@ -32,18 +32,18 @@ spec:
 
   template:
     metadata:
-      name: '{{.clusters.name}}-{{.matrix.team.path.basename}}-{{.matrix.app.path.basename}}'
+      name: '{{.name}}-{{.team.path.basename}}-{{.app.path.basename}}'
       labels:
         environment: staging
-        team: '{{.matrix.team.path.basename}}'
+        team: '{{.team.path.basename}}'
     spec:
-      project: '{{.matrix.team.path.basename}}'
+      project: '{{.team.path.basename}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: '{{.matrix.app.path.path}}'
+        path: '{{.app.path.path}}'
         targetRevision: HEAD
       destination:
-        name: '{{.clusters.name}}'
+        name: '{{.name}}'
         namespace: argocd
       syncPolicy:
         syncOptions:
