@@ -36,7 +36,7 @@ spec:
   template:
     metadata:
       # staging-team-a-nginx
-      name: '{{.name}}-{{.values.team}}-{{.values.app}}'
+      name: 'cluster-{{.values.team}}-{{.values.app}}'
       labels:
         environment: staging
         team: '{{.values.team}}'
@@ -47,7 +47,7 @@ spec:
         path: 'apps/{{.values.team}}/staging/{{.values.app}}'
         targetRevision: HEAD
       destination:
-        server: https://kubernetes.default.svc
+        name: in-cluster
         namespace: argocd
       syncPolicy:
         syncOptions:
