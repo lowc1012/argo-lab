@@ -15,7 +15,10 @@ spec:
               selector:
                 matchLabels:
                   team: all
-                  env: staging 
+                  env: staging
+              values:
+                team: '{{.team.path.basename}}'
+                app: '{{.app.path.basename}}'
           - matrix:
               generators:
                 - git:
