@@ -24,7 +24,7 @@ spec:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
               directories:
-                - path: 'apps/{{values.team}}/staging/*'
+                - path: 'apps/team-a/staging/*'
 
   template:
     metadata:
