@@ -34,7 +34,7 @@ spec:
 
   template:
     metadata:
-      name: '{{.generators.clusters.name}}-{{.team.path.basename}}-{{.app.path.basename}}'
+      name: '{{.values.clusters-name}}-{{.team.path.basename}}-{{.app.path.basename}}'
       labels:
         environment: staging
         team: '{{.team.path.basename}}'
@@ -45,7 +45,7 @@ spec:
         path: '{{.app.path.path}}'
         targetRevision: HEAD
       destination:
-        name: '{{.generators.clusters.name}}'
+        name: '{{.values.clusters-name}}'
         namespace: argocd
       syncPolicy:
         syncOptions:
