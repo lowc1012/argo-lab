@@ -11,47 +11,44 @@ spec:
   generators:
     - matrix:
         generators:
-          - clusters:
-              selector:
-                matchLabels:
-                  team: all
-                  env: staging
-              values:
-                team: '{{.team.path.basename}}'
-                app: '{{.app.path.basename}}'
           - matrix:
               generators:
                 - git:
                     repoURL: git@github.com:lowc1012/argo-lab.git
                     revision: HEAD
                     directories:
-                      - path: 'apps/*'
+                      - path: "apps/*"
                     pathParamPrefix: team
                 - git:
                     repoURL: git@github.com:lowc1012/argo-lab.git
                     revision: HEAD
                     directories:
-                      - path: 'apps/{{.team.path.basename}}/staging/*'
+                      - path: "apps/{{.team.path.basename}}/staging/*"
                     pathParamPrefix: app
+          - clusters:
+            selector:
+              matchLabels:
+                team: all
+                env: staging
 
   template:
     metadata:
-      name: '{{.name}}-{{.team.path.basename}}-{{.app.path.basename}}'
+      name: "{{.name}}-{{.team.path.basename}}-{{.app.path.basename}}"
       labels:
         environment: staging
-        team: '{{.team.path.basename}}'
+        team: "{{.team.path.basename}}"
     spec:
-      project: '{{.team.path.basename}}'
+      project: "{{.team.path.basename}}"
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: 'apps/{{.team.path.basename}}/staging/{{.app.path.basename}}'
+        path: "apps/{{.team.path.basename}}/staging/{{.app.path.basename}}"
         targetRevision: HEAD
       destination:
-        name: '{{.name}}'
+        name: "{{.name}}"
         namespace: argocd
       syncPolicy:
         syncOptions:
-          - CreateNamespace=true 
+          - CreateNamespace=true
         automated:
           prune: true
           selfHeal: true
