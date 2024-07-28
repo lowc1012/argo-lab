@@ -11,34 +11,39 @@ spec:
   generators:
     - matrix:
         generators:
-          - clusters: {}
-
+          - git:
+              repoURL: git@github.com:lowc1012/argo-lab.git
+              revision: HEAD
+              directories:
+                - path: "apps/*"
+              pathParamPrefix: team
           - matrix:
               generators:
-                - git:
-                    repoURL: git@github.com:lowc1012/argo-lab.git
-                    revision: HEAD
-                    directories:
-                      - path: "apps/*"
-                    pathParamPrefix: team
+                - clusters:
+                    selector:
+                      matchLabels:
+                        team: all
+                        env: staging
                 - git:
                     repoURL: git@github.com:lowc1012/argo-lab.git
                     revision: HEAD
                     directories:
                       - path: "apps/{{.team.path.basename}}/staging/*"
                     pathParamPrefix: app
+                    values:
+                      team: '{{.team.path.basename}}'
 
   template:
     metadata:
-      name: "{{.name}}-{{.team.path.basename}}-{{.app.path.basename}}"
+      name: "{{.name}}-{{.values.team}}-{{.app.path.basename}}"
       labels:
         environment: staging
-        team: "{{.team.path.basename}}"
+        team: "{{.values.team}}"
     spec:
-      project: "{{.team.path.basename}}"
+      project: "{{.values.team}}"
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: "apps/{{.team.path.basename}}/staging/{{.app.path.basename}}"
+        path: "apps/{{.values.team}}/staging/{{.app.path.basename}}"
         targetRevision: HEAD
       destination:
         name: "{{.name}}"
