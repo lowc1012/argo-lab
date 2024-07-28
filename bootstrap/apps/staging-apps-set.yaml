@@ -18,15 +18,13 @@ spec:
                 - path: 'teams/*'
               pathParamPrefix: team
               values:
-                team: '{{.generators.1.path.basename}}'
+                team: '{{.team.path.basename}}'
           - git:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
               directories:
                 - path: 'apps/{{.values.team}}/staging/*'
-              values:
-                env: staging
-                app: '{{path.basename}}'
+              pathParamPrefix: app
 
   template:
     metadata:
