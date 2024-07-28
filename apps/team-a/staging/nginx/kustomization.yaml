@@ -1,10 +1,11 @@
 helmGlobals:
   chartHome: ../../../../charts
 
+namespace: nginx
+
 helmCharts:
   - name: "nginx"
     version: "0.1.0"
     releaseName: nginx
     includeCRDs: false
-    namespace: nginx
     valuesFile: values.yaml

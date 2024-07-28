@@ -1,8 +1,8 @@
+namespace: nodejs
 helmCharts:
   - name: ibm-nodejs-express
     repo: https://raw.githubusercontent.com/IBM/charts/master/repo/stable
     version: "1.0.0"
     releaseName: nodejs-express-server
     includeCRDs: false
-    namespace: nodejs
     valuesFile: values.yaml
