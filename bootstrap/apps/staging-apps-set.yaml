@@ -36,15 +36,15 @@ spec:
   template:
     metadata:
       # staging-team-a-nginx
-      name: '{{.name}}-{{values.team}}-{{values.app}}'
+      name: '{{.name}}-{{.values.team}}-{{.values.app}}'
       labels:
         environment: staging
-        team: '{{values.team}}'
+        team: '{{.values.team}}'
     spec:
-      project: '{{values.team}}'
+      project: '{{.values.team}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: 'apps/{{values.team}}/{{values.env}}/{{values.app}}'
+        path: 'apps/{{.values.team}}/staging/{{.values.app}}'
         targetRevision: HEAD
       destination:
         server: https://kubernetes.default.svc
