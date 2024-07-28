@@ -9,6 +9,11 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
+    - clusters:
+        selector:
+          matchLabels:
+            team: all
+            env: staging
     - matrix:
         generators:
           - git:
@@ -26,20 +31,20 @@ spec:
                 - path: 'apps/{{.values.team}}/staging/*'
               pathParamPrefix: app
               values:
-                env: staging
+                app: '{{.app.path.basename}}'
 
   template:
     metadata:
       # staging-team-a-nginx
-      name: '{{.values.env}}-{{.values.team}}-{{.app.path.basename}}'
+      name: '{{.name}}-{{.values.team}}-{{.values.app}}'
       labels:
-        environment: '{{.values.env}}'
+        environment: staging
         team: '{{.values.team}}'
     spec:
       project: '{{.values.team}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: 'apps/{{.values.team}}/{{.values.env}}/{{.app.path.basename}}'
+        path: 'apps/{{.values.team}}/{{.values.env}}/{{.values.app}}'
         targetRevision: HEAD
       destination:
         server: https://kubernetes.default.svc
