@@ -13,9 +13,7 @@ spec:
         selector:
           matchLabels:
             team: all
-            env: staging
-        values:
-          clustername: '{{.name}}'
+            env: staging 
     - matrix:
         generators:
           - git:
@@ -34,18 +32,18 @@ spec:
 
   template:
     metadata:
-      name: '{{.values.clustername}}-{{.team.path.basename}}-{{.app.path.basename}}'
+      name: '{{.clusters.name}}-{{.matrix.team.path.basename}}-{{.matrix.app.path.basename}}'
       labels:
         environment: staging
-        team: '{{.team.path.basename}}'
+        team: '{{.matrix.team.path.basename}}'
     spec:
-      project: '{{.team.path.basename}}'
+      project: '{{.matrix.team.path.basename}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: '{{.app.path.path}}'
+        path: '{{.matrix.app.path.path}}'
         targetRevision: HEAD
       destination:
-        name: '{{.values.clustername}}'
+        name: '{{.cluster.name}}'
         namespace: argocd
       syncPolicy:
         syncOptions:
