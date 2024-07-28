@@ -19,16 +19,17 @@ spec:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
               directories:
-                - path: 'apps/*'
+                - path: 'apps/*/staging/*'
 
   template:
     metadata:
-      name: '{{metadata.labels.env}}-{{path.basename}}-apps'
+      # staging-team-a-nginx
+      name: '{{metadata.labels.env}}-{{index path.segments 1}}-{{path.basename}}'
     spec:
-      project: '{{path.basename}}'
+      project: '{{index path.segments 1}}'
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
-        path: 'apps/{{path.basename}}/{{metadata.labels.env}}'
+        path: 'apps/{{index path.segments 1}}/{{metadata.labels.env}}/{{path.basename}}'
         targetRevision: HEAD
       destination:
         name: '{{name}}'
