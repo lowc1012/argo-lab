@@ -14,6 +14,8 @@ spec:
           matchLabels:
             team: all
             env: staging
+        values:
+          cluster-name: '{{.name}}'
     - matrix:
         generators:
           - git:
