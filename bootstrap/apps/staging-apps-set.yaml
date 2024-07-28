@@ -26,7 +26,7 @@ spec:
       # staging-team-a-nginx
       name: '{{metadata.labels.env}}-{{index .path.segments 1}}-{{path.basename}}'
     spec:
-      project: '{{index .path.segments 1}}'
+      project: team-a
       source:
         repoURL: git@github.com:lowc1012/argo-lab.git
         path: 'apps/{{index .path.segments 1}}/{{metadata.labels.env}}/{{path.basename}}'
