@@ -22,8 +22,7 @@ spec:
               directories:
                 - path: 'apps/*'
               pathParamPrefix: team
-              values:
-                team: '{{.team.path.basename}}'
+                
           - git:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
@@ -31,6 +30,7 @@ spec:
                 - path: 'apps/{{.values.team}}/staging/*'
               pathParamPrefix: app
               values:
+                team: '{{.team.path.basename}}'
                 app: '{{.app.path.basename}}'
 
   template:
