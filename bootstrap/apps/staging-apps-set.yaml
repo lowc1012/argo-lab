@@ -11,6 +11,8 @@ spec:
   generators:
     - matrix:
         generators:
+          - clusters: {}
+
           - matrix:
               generators:
                 - git:
@@ -25,11 +27,6 @@ spec:
                     directories:
                       - path: "apps/{{.team.path.basename}}/staging/*"
                     pathParamPrefix: app
-          - clusters:
-            selector:
-              matchLabels:
-                team: all
-                env: staging
 
   template:
     metadata:
