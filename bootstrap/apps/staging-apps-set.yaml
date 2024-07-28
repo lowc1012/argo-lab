@@ -25,6 +25,9 @@ spec:
               directories:
                 - path: 'apps/{{.values.team}}/staging/*'
               pathParamPrefix: app
+              values:
+                env: staging
+                app: '{{.app.path.basename}}'
 
   template:
     metadata:
