@@ -1,0 +1,13 @@
+replicaCount: 1
+image:
+  repository: icr.io/ibm/nodejs
+  tag: latest
+service:
+  type: NodePort
+  port: 3000
+ingress:
+  enabled: false
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

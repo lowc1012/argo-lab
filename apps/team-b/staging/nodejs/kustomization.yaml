@@ -1,0 +1,8 @@
+helmCharts:
+  - name: "ibm-nodejs-express"
+    repo: https://icr.io/helm/ibm-charts
+    version: "1.0.0"
+    releaseName: nodejs-express-server
+    includeCRDs: false
+    namespace: nodejs
+    valuesFile: values.yaml
