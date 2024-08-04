@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: helm-apps
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: git@github.com:lowc1012/argo-lab.git
+              revision: HEAD
+              directories:
+                - path: "apps/*"
+              pathParamPrefix: team
+          - git:
+              repoURL: git@github.com:lowc1012/argo-lab.git
+              revision: HEAD
+              files:
+                - path: "apps/{{.team.path.basenameNormalized}}/**/app.yaml"
+              pathParamPrefix: app
+              values:
+                team: "{{.team.path.basenameNormalized}}"
+                env: "{{index .app.path 0}}"
+
+  template:
+    metadata:
+      name: "{{.cluster.name}}-{{.values.team}}-{{.appName}}"
+      labels:
+        environment: "{{.values.env}}"
+        team: "{{.values.team}}"
+    spec:
+      project: "{{.values.team}}"
+      sources:
+        - repoURL: "{{.helmChart.repoURL}}"
+          path: clusters/charts/"{{.helmChart.name}}"
+          targetRevision: "{{.helmChart.version}}"
+          helm:
+            valueFiles:
+              - $values/{{.app.path.path}}/values.yaml
+        - repoURL: git@github.com:lowc1012/argo-lab.git
+          targetRevision: HEAD
+          ref: values
+      destination:
+        name: "{{.cluster.name}}"
+        namespace: "{{.namespace}}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          backoff:
+            duration: 1m
+          limit: 100

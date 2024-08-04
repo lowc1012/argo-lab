@@ -1,0 +1,10 @@
+namespace: nodejs
+name: nginx
+
+helmChart:
+  repoURL: git@github.com:lowc1012/argo-lab.git
+  name: nginx
+  version: "0.1.0"
+
+cluster:
+  name: in-cluster
