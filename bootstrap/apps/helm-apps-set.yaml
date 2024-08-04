@@ -35,7 +35,7 @@ spec:
       project: "{{.values.team}}"
       sources:
         - repoURL: "{{.helmChart.repoURL}}"
-          path: clusters/charts/"{{.helmChart.name}}"
+          path: "clusters/charts/{{.helmChart.name}}"
           targetRevision: "{{.helmChart.version}}"
           helm:
             valueFiles:
