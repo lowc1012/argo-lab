@@ -25,13 +25,12 @@ spec:
               pathParamPrefix: app
               values:
                 team: "{{.team.path.basenameNormalized}}"
-                env: "{{index .app.path 0}}"
 
   template:
     metadata:
       name: "{{.cluster.name}}-{{.values.team}}-{{.appName}}"
       labels:
-        environment: "{{.values.env}}"
+        environment: "{{index .app.path 0}}"
         team: "{{.values.team}}"
     spec:
       project: "{{.values.team}}"
