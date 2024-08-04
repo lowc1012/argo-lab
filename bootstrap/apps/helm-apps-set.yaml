@@ -30,7 +30,6 @@ spec:
     metadata:
       name: "{{.cluster.name}}-{{.values.team}}-{{.name}}"
       labels:
-        environment: "{{index .app.path 0}}"
         team: "{{.values.team}}"
     spec:
       project: "{{.values.team}}"
