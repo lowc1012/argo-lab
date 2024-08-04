@@ -28,16 +28,16 @@ spec:
 
   template:
     metadata:
-      name: "{{.app.cluster.name}}-{{.values.team}}-{{.app.name}}"
+      name: "{{.cluster.name}}-{{.values.team}}-{{.name}}"
       labels:
         environment: "{{index .app.path 0}}"
         team: "{{.values.team}}"
     spec:
       project: "{{.values.team}}"
       sources:
-        - repoURL: "{{.app.helmChart.repoURL}}"
-          path: clusters/charts/"{{.app.helmChart.name}}"
-          targetRevision: "{{.app.helmChart.version}}"
+        - repoURL: "{{.helmChart.repoURL}}"
+          path: clusters/charts/"{{.helmChart.name}}"
+          targetRevision: "{{.helmChart.version}}"
           helm:
             valueFiles:
               - $values/{{.app.path.path}}/values.yaml
@@ -45,8 +45,8 @@ spec:
           targetRevision: HEAD
           ref: values
       destination:
-        name: "{{.app.cluster.name}}"
-        namespace: "{{.app.namespace}}"
+        name: "{{.cluster.name}}"
+        namespace: "{{.namespace}}"
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
