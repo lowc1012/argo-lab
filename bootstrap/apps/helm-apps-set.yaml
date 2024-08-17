@@ -22,6 +22,7 @@ spec:
               revision: HEAD
               files:
                 - path: "apps/{{.team.path.basenameNormalized}}/**/app.yaml"
+                - path: "apps/{{.team.path.basenameNormalized}}/**/kustomization.yaml"
               pathParamPrefix: app
               values:
                 team: "{{.team.path.basenameNormalized}}"
@@ -55,4 +56,6 @@ spec:
         retry:
           backoff:
             duration: 1m
+          {{- with .retryLimit}}
           limit: 100
+          {{- end }}
