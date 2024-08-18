@@ -5,7 +5,7 @@ helmChart:
   repoURL: git@github.com:lowc1012/argo-lab.git
   version: HEAD
 
-namespace: nodejs
+namespace: nginx
 
 notification:
   slack:
