@@ -28,6 +28,8 @@ spec:
                     selector:
                       matchLabels:
                         env: staging
+                    values:
+                      cluster: '{{.name}}'
 
                 # list all application config file under the <team> and staging environment
                 - git:
@@ -64,7 +66,7 @@ spec:
 
   template:
     metadata:
-      name: "{{.name}}-{{.team.path.basenameNormalized}}-{{.appName}}"
+      name: "{{.values.cluster}}-{{.team.path.basenameNormalized}}-{{.appName}}"
       labels:
         team: "{{.team.path.basenameNormalized}}"
     spec:
