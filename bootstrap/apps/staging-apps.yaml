@@ -49,7 +49,7 @@ spec:
               - $values/{{ .config.path.path }}/values.yaml
             parameters:
               - name: podAnnotations.test
-                value: {{ .metadata.annotations.aws/accountId }}
+                value: '{{ .metadata.annotations.aws/accountId }}'
 
         - repoURL: git@github.com:lowc1012/argo-lab.git
           targetRevision: HEAD
