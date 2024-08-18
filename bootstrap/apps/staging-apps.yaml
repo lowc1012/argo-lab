@@ -25,7 +25,7 @@ spec:
               pathParamPrefix: config
 
   templatePatch: |
-    {{- if eq .type "helm" }}
+    {{- if hasKey . "helmChart" }}
     spec:
       sources:
         - repoURL: {{ .helmChart.repoURL }}

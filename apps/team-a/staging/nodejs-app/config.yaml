@@ -1,7 +1,5 @@
 appName: nodejs-app
 
-type: kustomize # or kustomize
-
 namespace: nodejs
 
 notification:
