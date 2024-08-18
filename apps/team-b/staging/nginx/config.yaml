@@ -1,3 +1,5 @@
+appName: nginx
+
 type: helm # or kustomize
 
 helmChart:
