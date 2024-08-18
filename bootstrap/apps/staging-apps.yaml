@@ -51,9 +51,9 @@ spec:
     metadata:
       name: "{{.cluster.name}}-{{.team.path.basenameNormalized}}-{{.appName}}"
       labels:
-        team: "{{.values.team}}"
+        team: "{{.team.path.basenameNormalized}}"
     spec:
-      project: "{{.values.team}}"
+      project: "{{.team.path.basenameNormalized}}"
       destination:
         name: "{{.cluster.name}}"
         namespace: "{{.namespace}}"
