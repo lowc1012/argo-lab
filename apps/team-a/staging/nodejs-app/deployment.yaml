@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: node:14
+          image: ryanlo1012/express-app:latest
+          command: ["node", "app.js"]
           ports:
             - containerPort: 3000
           envFrom:
