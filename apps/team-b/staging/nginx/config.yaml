@@ -2,6 +2,7 @@ appName: nginx
 
 type: helm # or kustomize
 
+# only for helm type application
 helmChart:
   name: nginx
   repoURL: git@github.com:lowc1012/argo-lab.git
