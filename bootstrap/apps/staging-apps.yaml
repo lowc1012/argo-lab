@@ -57,7 +57,7 @@ spec:
     spec:
       project: "{{.team.path.basenameNormalized}}"
       destination:
-        server: "{{.cluster}}"
+        name: "{{.cluster}}"
         namespace: "{{.namespace}}"
       syncPolicy:
         syncOptions:
