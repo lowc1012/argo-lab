@@ -13,6 +13,6 @@ ingress:
   enabled: false
 
 resources: {}
-nodeSelector: {}
-tolerations: []
-affinity: {}
+
+podAnnotations:
+  test.aws/accountId: "overridden"

@@ -4,6 +4,8 @@ metadata:
   name: {{ include "nginx.fullname" . }}
   labels:
     {{- include "nginx.labels" . | nindent 4 }}
+  annotations:
+    test.anotherval: "{{ .Values.podAnnotations.test }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
