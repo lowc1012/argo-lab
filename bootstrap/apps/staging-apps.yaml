@@ -43,8 +43,8 @@ spec:
         repoURL: git@github.com:lowc1012/argo-lab.git
         path: '{{.config.path.path}}'
         targetRevision: HEAD
-        kustomize:
-          namespace: '{{.namespace}}'
+        directory:
+          recurse: true
     {{- end }}
 
   template:
