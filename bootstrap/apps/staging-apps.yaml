@@ -22,6 +22,7 @@ spec:
           - merge:
               mergeKeys:
                 - server
+                - appName
               generators:
                 # list all application config file under the <team> and staging environment
                 - git:
