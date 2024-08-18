@@ -23,12 +23,6 @@ spec:
               mergeKeys:
                 - server
               generators:
-                # list all staging clusters 
-                - clusters:
-                    selector:
-                      matchLabels:
-                        env: staging
-
                 # list all application config file under the <team> and staging environment
                 - git:
                     repoURL: git@github.com:lowc1012/argo-lab.git
@@ -36,6 +30,11 @@ spec:
                     files:
                       - path: "apps/{{.team.path.basenameNormalized}}/staging/**/config.yaml"
                     pathParamPrefix: config
+                # list all staging clusters 
+                - clusters:
+                    selector:
+                      matchLabels:
+                        env: staging
 
   templatePatch: |
     {{- if hasKey . "helmChart" }}
