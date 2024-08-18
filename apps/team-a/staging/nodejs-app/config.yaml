@@ -1,0 +1,11 @@
+type: kustomize # or kustomize
+
+namespace: nodejs
+
+notification:
+  slack:
+    enabled: true
+    channel: "#shared-service-deployment"
+
+cluster:
+  name: in-cluster

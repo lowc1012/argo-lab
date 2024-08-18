@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: helm-apps
+  name: staging-apps
   namespace: argocd
 spec:
   syncPolicy:
@@ -21,29 +21,39 @@ spec:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
               files:
-                - path: "apps/{{.team.path.basenameNormalized}}/**/app.yaml"
-                - path: "apps/{{.team.path.basenameNormalized}}/**/kustomization.yaml"
-              pathParamPrefix: app
-              values:
-                team: "{{.team.path.basenameNormalized}}"
+                - path: "apps/{{.team.path.basenameNormalized}}/staging/**/config.yaml"
+              pathParamPrefix: config
+
+  templatePatch: |
+    {{- if eq .type "helm" }}
+    spec:
+      sources:
+        - repoURL: git@github.com:lowc1012/argo-lab.git
+          targetRevision: HEAD
+          ref: values
+        - repoURL: {{ .helmChart.repoURL }}
+          path: charts/{{ .helmChart.name }}
+          targetRevision: {{ .helmChart.version }}
+          helm:
+            valueFiles:
+              - $values/{{ .config.path.path }}/values.yaml
+    {{- else }}
+    spec:
+      source:
+        repoURL: git@github.com:lowc1012/argo-lab.git
+        path: '{{.config.path.path}}'
+        targetRevision: HEAD
+        kustomize:
+          namespace: '{{.namespace}}'
+    {{- end }}
 
   template:
     metadata:
-      name: "{{.cluster.name}}-{{.values.team}}-{{.name}}"
+      name: "{{.cluster.name}}-{{.team.path.basenameNormalized}}-{{.name}}"
       labels:
         team: "{{.values.team}}"
     spec:
       project: "{{.values.team}}"
-      sources:
-        - repoURL: "{{.helmChart.repoURL}}"
-          path: "charts/{{.helmChart.name}}"
-          targetRevision: "{{.helmChart.version}}"
-          helm:
-            valueFiles:
-              - $values/{{.app.path.path}}/values.yaml
-        - repoURL: git@github.com:lowc1012/argo-lab.git
-          targetRevision: HEAD
-          ref: values
       destination:
         name: "{{.cluster.name}}"
         namespace: "{{.namespace}}"
@@ -56,6 +66,4 @@ spec:
         retry:
           backoff:
             duration: 1m
-          {{- with .retryLimit}}
           limit: 100
-          {{- end }}

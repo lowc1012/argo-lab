@@ -1,0 +1,16 @@
+type: helm # or kustomize
+
+helmChart:
+  name: nginx
+  repoURL: git@github.com:lowc1012/argo-lab.git
+  version: HEAD
+
+namespace: nodejs
+
+notification:
+  slack:
+    enabled: true
+    channel: "#shared-service-deployment"
+
+cluster:
+  name: in-cluster
