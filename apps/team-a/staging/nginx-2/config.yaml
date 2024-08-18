@@ -1,0 +1,16 @@
+appName: nginx-2
+
+# only for helm type application
+helmChart:
+  name: nginx
+  repoURL: git@github.com:lowc1012/argo-lab.git
+  version: HEAD
+
+namespace: nginx-2
+
+notification:
+  slack:
+    enabled: true
+    channel: "#shared-service-deployment"
+
+server: https://kubernetes.default.svc
