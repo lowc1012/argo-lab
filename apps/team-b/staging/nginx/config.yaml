@@ -13,4 +13,4 @@ notification:
     enabled: true
     channel: "#shared-service-deployment"
 
-server: https://kubernetes.default.svc
+cluster: in-cluster

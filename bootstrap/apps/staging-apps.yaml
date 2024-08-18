@@ -15,29 +15,17 @@ spec:
           - git:
               repoURL: git@github.com:lowc1012/argo-lab.git
               revision: HEAD
+              pathParamPrefix: team
               directories:
                 - path: "apps/*"
-              pathParamPrefix: team
 
-          - merge:
-              mergeKeys:
-                - server
-              generators:
-                # list all staging clusters 
-                - clusters:
-                    selector:
-                      matchLabels:
-                        env: staging
-                    values:
-                      cluster: '{{.name}}'
-
-                # list all application config file under the <team> and staging environment
-                - git:
-                    repoURL: git@github.com:lowc1012/argo-lab.git
-                    revision: HEAD
-                    files:
-                      - path: "apps/{{.team.path.basenameNormalized}}/staging/**/config.yaml"
-                    pathParamPrefix: config
+          # list all application config file under the <team> and staging environment
+          - git:
+              repoURL: git@github.com:lowc1012/argo-lab.git
+              revision: HEAD
+              files:
+                - path: "apps/{{.team.path.basenameNormalized}}/staging/**/config.yaml"
+              pathParamPrefix: config
 
   templatePatch: |
     {{- if hasKey . "helmChart" }}
@@ -49,9 +37,6 @@ spec:
           helm:
             valueFiles:
               - $values/{{ .config.path.path }}/values.yaml
-            parameters:
-              - name: podAnnotations.test
-                value: '{{ values.awsAccountId }}'
 
         - repoURL: git@github.com:lowc1012/argo-lab.git
           targetRevision: HEAD
@@ -66,13 +51,13 @@ spec:
 
   template:
     metadata:
-      name: "{{.values.cluster}}-{{.team.path.basenameNormalized}}-{{.appName}}"
+      name: "{{.cluster}}-{{.team.path.basenameNormalized}}-{{.appName}}"
       labels:
         team: "{{.team.path.basenameNormalized}}"
     spec:
       project: "{{.team.path.basenameNormalized}}"
       destination:
-        server: "{{.server}}"
+        server: "{{.cluster}}"
         namespace: "{{.namespace}}"
       syncPolicy:
         syncOptions:
