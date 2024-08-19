@@ -2,8 +2,5 @@ appName: nodejs-app
 
 namespace: nodejs
 
-notification:
-  slack:
-    channels: [ "shared-service-deployment" ]
 
 cluster: in-cluster
