@@ -62,7 +62,7 @@ spec:
 
   template:
     metadata:
-      name: "{{.cluster}}-{{.team.path.basenameNormalized}}-{{.appName}}"
+      name: "{{.cluster.name}}-{{.team.path.basenameNormalized}}-{{.appName}}"
       labels:
         team: "{{.team.path.basenameNormalized}}"
     spec:
