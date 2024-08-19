@@ -5,6 +5,7 @@ helmChart:
   name: nginx
   repoURL: git@github.com:lowc1012/argo-lab.git
   version: HEAD
+  valueFiles: [ "values.yaml" ]
 
 namespace: nginx-2
 
