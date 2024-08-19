@@ -1,6 +1,6 @@
 appName: nodejs-app
 
-namespace: nodejs
 
-
-cluster: in-cluster
+cluster:
+  name: in-cluster
+  namespace: nodejs

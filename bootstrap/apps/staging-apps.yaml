@@ -44,8 +44,9 @@ spec:
           helm:
             releaseName: {{.appName}}
             valueFiles:
+              {{- $prefixAppPath := printf "%s/%s" $values .app.path.path -}}
               {{- range $valueFile := .helmChart.valueFiles }}
-              - $values/{{.app.path.path}}/{{$valueFile}}
+              - $prefixAppPath/{{$valueFile}}
               {{- end }}
 
         - repoURL: git@github.com:lowc1012/argo-lab.git

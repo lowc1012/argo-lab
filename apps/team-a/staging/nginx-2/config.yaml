@@ -7,10 +7,10 @@ helmChart:
   version: HEAD
   valueFiles: [ "values.yaml" ]
 
-namespace: nginx-2
-
 notification:
   slack:
     channels: [ "shared-service-deployment" ]
 
-cluster: in-cluster
+cluster:
+  name: in-cluster
+  namespace: nginx-2
