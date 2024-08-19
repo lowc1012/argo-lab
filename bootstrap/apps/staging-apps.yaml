@@ -44,9 +44,9 @@ spec:
           helm:
             releaseName: {{.appName}}
             valueFiles:
-              {{- $appDir := printf "%s/%s" $values .config.path.path -}}
+              {{- $configDir := .config.path.path -}}
               {{- range $valueFile := .helmChart.valueFiles }}
-              - $appDir/{{$valueFile}}
+              - $values/{{$configDir}}/{{$valueFile}}
               {{- end }}
 
         - repoURL: git@github.com:lowc1012/argo-lab.git
