@@ -10,7 +10,6 @@ namespace: nginx
 
 notification:
   slack:
-    enabled: true
-    channel: "#shared-service-deployment"
+    channels: [ "test-deployment", "team-b-deployment" ]
 
 cluster: in-cluster

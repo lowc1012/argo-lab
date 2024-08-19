@@ -4,7 +4,6 @@ namespace: nodejs
 
 notification:
   slack:
-    enabled: true
-    channel: "#shared-service-deployment"
+    channels: [ "shared-service-deployment" ]
 
 cluster: in-cluster
