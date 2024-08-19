@@ -28,7 +28,7 @@ spec:
               pathParamPrefix: config
 
   templatePatch: |
-    {{- $channels := . | dig "notification" "slack" "channels" | join ";" }}
+    {{- $channels := . | dig "notification" "slack" "channels" "[]" | join ";" }}
     {{- if $channels -}}
     metadata:
       annotations:
