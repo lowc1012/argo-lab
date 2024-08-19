@@ -67,8 +67,8 @@ spec:
     spec:
       project: "{{.team.path.basenameNormalized}}"
       destination:
-        name: "{{.cluster}}"
-        namespace: "{{.namespace}}"
+        name: "{{.cluster.name}}"
+        namespace: "{{.cluster.namespace}}"
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
