@@ -28,6 +28,14 @@ spec:
               pathParamPrefix: config
 
   templatePatch: |
+    {{- $channels := (dig "notification" "slack" "channels" .) | default list | join ";" }}
+    {{- if $channels -}}
+    metadata:
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-running.slack: {{$channels}}
+        notifications.argoproj.io/subscribe.on-sync-failed.slack: {{$channels}}
+        notifications.argoproj.io/subscribe.on-deployed.slack: {{$channels}}
+    {{- end }}
     {{- if hasKey . "helmChart" }}
     spec:
       sources:
