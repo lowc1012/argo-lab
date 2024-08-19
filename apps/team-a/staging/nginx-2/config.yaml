@@ -13,4 +13,4 @@ notification:
 
 cluster:
   name: in-cluster
-  namespace: nginx-2
+  namespace: nginx-test
