@@ -28,7 +28,7 @@ spec:
               pathParamPrefix: config
 
   templatePatch: |
-    {{- $channels := . | dig "notification" "slack" "channels" "[]" | join ";" -}}
+    {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
     metadata:
       annotations:
         notifications.argoproj.io/subscribe.on-sync-running.slack: {{$channels}}
