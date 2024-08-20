@@ -31,6 +31,7 @@ spec:
     {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
     metadata:
       annotations:
+        {{$channels}}
         {{- if $channels }}
         notifications.argoproj.io/subscribe.on-sync-running.slack: {{$channels}}
         notifications.argoproj.io/subscribe.on-sync-failed.slack: {{$channels}}
