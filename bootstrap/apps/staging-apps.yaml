@@ -47,6 +47,7 @@ spec:
         - repoURL: git@github.com:lowc1012/argo-lab.git
           targetRevision: HEAD
           ref: values
+
     {{- else }}
     spec:
       source:
@@ -54,6 +55,7 @@ spec:
         path: '{{.config.path.path}}'
         targetRevision: HEAD
     {{- end }}
+
     {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
     metadata:
       annotations:
