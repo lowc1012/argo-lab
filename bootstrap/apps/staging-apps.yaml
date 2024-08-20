@@ -43,9 +43,9 @@ spec:
           targetRevision: {{ .helmChart.version }}
           helm:
             releaseName: {{.appName}}
+            {{- $configDir := .config.path.path -}}
             {{- with .helmChart.valueFiles }}
             valueFiles:
-              {{- $configDir := .config.path.path -}}
               {{- range $valueFile := . }}
               - $values/{{$configDir}}/{{$valueFile}}
               {{- end }}
