@@ -9,7 +9,7 @@ helmChart:
 
 notification:
   slack:
-    channels: [ "shared-service-deployment" ]
+    channels: []
 
 cluster:
   name: in-cluster
