@@ -43,11 +43,13 @@ spec:
           targetRevision: {{ .helmChart.version }}
           helm:
             releaseName: {{.appName}}
+            {{- with .helmChart.valueFiles }}
             valueFiles:
               {{- $configDir := .config.path.path -}}
-              {{- range $valueFile := .helmChart.valueFiles }}
+              {{- range $valueFile := . }}
               - $values/{{$configDir}}/{{$valueFile}}
               {{- end }}
+            {{- end }}
 
         - repoURL: git@github.com:lowc1012/argo-lab.git
           targetRevision: HEAD
