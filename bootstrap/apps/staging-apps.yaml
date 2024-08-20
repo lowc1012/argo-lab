@@ -28,15 +28,6 @@ spec:
               pathParamPrefix: config
 
   templatePatch: |
-    {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
-    metadata:
-      annotations:
-        {{- with $channels }}
-        notifications.argoproj.io/subscribe.on-sync-running.slack: {{ . }}
-        notifications.argoproj.io/subscribe.on-sync-failed.slack: {{ . }}
-        notifications.argoproj.io/subscribe.on-deployed.slack: {{ . }}
-        {{- end }}
-
     {{- if hasKey . "helmChart" }}
     spec:
       sources:
@@ -63,6 +54,15 @@ spec:
         path: '{{.config.path.path}}'
         targetRevision: HEAD
     {{- end }}
+
+    {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
+    metadata:
+      annotations:
+        {{- with $channels }}
+        notifications.argoproj.io/subscribe.on-sync-running.slack: {{ . }}
+        notifications.argoproj.io/subscribe.on-sync-failed.slack: {{ . }}
+        notifications.argoproj.io/subscribe.on-deployed.slack: {{ . }}
+        {{- end }}
 
   template:
     metadata:
