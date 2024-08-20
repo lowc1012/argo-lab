@@ -30,12 +30,12 @@ spec:
   templatePatch: |
     {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
     metadata:
+      {{- with $channels }}
       annotations:
-        {{- with $channels }}
         notifications.argoproj.io/subscribe.on-sync-running.slack: {{ . }}
         notifications.argoproj.io/subscribe.on-sync-failed.slack: {{ . }}
         notifications.argoproj.io/subscribe.on-deployed.slack: {{ . }}
-        {{- end }}
+      {{- end }}
 
     {{- if hasKey . "helmChart" }}
     spec:
