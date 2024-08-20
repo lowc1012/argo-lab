@@ -11,4 +11,6 @@ cluster:
   name: in-cluster
   namespace: nginx
 
-channels: [ "shared-service-deployment", "test-deployment" ]
+notification:
+  slack:
+    channels: [ "shared-service-deployment", "test-deployment" ]
