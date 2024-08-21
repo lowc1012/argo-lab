@@ -55,7 +55,7 @@ spec:
         path: '{{.config.path.path}}'
         targetRevision: HEAD
     {{- end }}
-    
+
     {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
     metadata:
       annotations:
