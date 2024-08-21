@@ -55,7 +55,7 @@ spec:
         targetRevision: HEAD
     {{- end }}
 
-    {{- $channels := . | dig "notification" "slack" "channels" "" | join ";" -}}
+    {{ $channels := . | dig "notification" "slack" "channels" "" | join ";" }}
     metadata:
       annotations:
         {{- with $channels }}
