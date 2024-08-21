@@ -47,7 +47,6 @@ spec:
         - repoURL: git@github.com:lowc1012/argo-lab.git
           targetRevision: HEAD
           ref: values
-
     {{- else }}
     spec:
       source:
