@@ -27,53 +27,27 @@ spec:
                 - path: "apps/{{.team.path.basenameNormalized}}/staging/**/config.yaml"
               pathParamPrefix: config
 
-  templatePatch: |
-    {{- if hasKey . "helmChart" }}
+  template:
+    metadata:
+      name: "{{.cluster.name}}-{{.team.path.basenameNormalized}}-{{.appName}}"
+      labels:
+        team: "{{.team.path.basenameNormalized}}"
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-running.slack: {{ . | dig "notification" "slack" "channels" "" | join ";" }}
+        notifications.argoproj.io/subscribe.on-sync-failed.slack: {{ . | dig "notification" "slack" "channels" "" | join ";" }}
+        notifications.argoproj.io/subscribe.on-deployed.slack: {{ . | dig "notification" "slack" "channels" "" | join ";" }}
     spec:
+      project: "{{.team.path.basenameNormalized}}"
+      destination:
+        name: "{{.cluster.name}}"
+        namespace: "{{.cluster.namespace}}"
       sources:
         - repoURL: {{ .helmChart.repoURL }}
           path: charts/{{ .helmChart.name }}
           targetRevision: {{ .helmChart.version }}
           helm:
             releaseName: {{.appName}}
-            {{- $configDir := .config.path.path -}}
-            {{- with .helmChart.valueFiles }}
-            valueFiles:
-              {{- range $valueFile := . }}
-              - $values/{{$configDir}}/{{$valueFile}}
-              {{- end }}
-            {{- end }}
-
-        - repoURL: git@github.com:lowc1012/argo-lab.git
-          targetRevision: HEAD
-          ref: values
-    {{- else }}
-    spec:
-      source:
-        repoURL: git@github.com:lowc1012/argo-lab.git
-        path: '{{.config.path.path}}'
-        targetRevision: HEAD
-    {{- end }}
-
-    {{ $channels := . | dig "notification" "slack" "channels" "" | join ";" }}
-    metadata:
-      annotations:
-        {{- with $channels }}
-        notifications.argoproj.io/subscribe.on-sync-running.slack: {{ . }}
-        notifications.argoproj.io/subscribe.on-sync-failed.slack: {{ . }}
-        notifications.argoproj.io/subscribe.on-deployed.slack: {{ . }}
-        {{- end }}
-
-  template:
-    metadata:
-      name: "{{.cluster.name}}-{{.team.path.basenameNormalized}}-{{.appName}}"
-      labels:
-        team: "{{.team.path.basenameNormalized}}"
-    spec:
-      project: "{{.team.path.basenameNormalized}}"
-      destination:
-        name: "{{.cluster.name}}"
-        namespace: "{{.cluster.namespace}}"
+            valueFiles: {{ . | dig "helmChart" "valueFiles" "" }}
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
