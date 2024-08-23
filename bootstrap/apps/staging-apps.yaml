@@ -47,7 +47,11 @@ spec:
           targetRevision: "{{.helmChart.version}}"
           helm:
             releaseName: "{{.appName}}"
-            valueFiles: {{ splitList " " "values.yaml" }}
+            valueFiles:
+              - $values/{{.config.path.path}}/values.yaml
+        - repoURL: git@github.com:lowc1012/argo-lab.git
+          targetRevision: HEAD
+          ref: values
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
