@@ -47,7 +47,7 @@ spec:
           targetRevision: "{{.helmChart.version}}"
           helm:
             releaseName: "{{.appName}}"
-            valueFiles: {{ . | dig "helmChart" "valueFiles" | default (list) }}
+            valueFiles: {{ . | dig "helmChart" "valueFiles" | toYaml }}
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
