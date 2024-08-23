@@ -33,21 +33,21 @@ spec:
       labels:
         team: "{{.team.path.basenameNormalized}}"
       annotations:
-        notifications.argoproj.io/subscribe.on-sync-running.slack: {{ . | dig "notification" "slack" "channels" "" | join ";" }}
-        notifications.argoproj.io/subscribe.on-sync-failed.slack: {{ . | dig "notification" "slack" "channels" "" | join ";" }}
-        notifications.argoproj.io/subscribe.on-deployed.slack: {{ . | dig "notification" "slack" "channels" "" | join ";" }}
+        notifications.argoproj.io/subscribe.on-sync-running.slack: '{{ . | dig "notification" "slack" "channels" "" | join ";" }}'
+        notifications.argoproj.io/subscribe.on-sync-failed.slack: '{{ . | dig "notification" "slack" "channels" "" | join ";" }}'
+        notifications.argoproj.io/subscribe.on-deployed.slack: '{{ . | dig "notification" "slack" "channels" "" | join ";" }}'
     spec:
       project: "{{.team.path.basenameNormalized}}"
       destination:
         name: "{{.cluster.name}}"
         namespace: "{{.cluster.namespace}}"
       sources:
-        - repoURL: {{ .helmChart.repoURL }}
-          path: charts/{{ .helmChart.name }}
-          targetRevision: {{ .helmChart.version }}
+        - repoURL: "{{.helmChart.repoURL}}"
+          path: charts/{{.helmChart.name}}
+          targetRevision: "{{.helmChart.version}}"
           helm:
-            releaseName: {{.appName}}
-            valueFiles: {{ . | dig "helmChart" "valueFiles" "" }}
+            releaseName: "{{.appName}}"
+            valueFiles: '{{ . | dig "helmChart" "valueFiles" "" }}'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
