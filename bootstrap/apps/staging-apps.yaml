@@ -47,7 +47,7 @@ spec:
           targetRevision: "{{.helmChart.version}}"
           helm:
             releaseName: "{{.appName}}"
-            valueFiles: {{ . | dig "helmChart" "valueFiles" "" | splitList ' ' }}
+            valueFiles: {{ splitList " " "values.yaml" }}
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
