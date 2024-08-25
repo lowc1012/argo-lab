@@ -29,7 +29,7 @@ spec:
               pathParamPrefix: config
       selector:
         matchExpressions:
-          - key: config.helmChart
+          - key: helmChart.name
             operator: DoesNotExist
 
   template:
