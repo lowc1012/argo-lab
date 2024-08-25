@@ -30,7 +30,7 @@ spec:
             selectors:
               matchExpressions:
                 - key: helmChart
-                  operator: Exists
+                  operator: DoesNotExist
 
   template:
     metadata:
@@ -46,17 +46,10 @@ spec:
       destination:
         name: "{{.cluster.name}}"
         namespace: "{{.cluster.namespace}}"
-      sources:
-        - repoURL: "{{.helmChart.repoURL}}"
-          path: charts/{{.helmChart.name}}
-          targetRevision: "{{.helmChart.version}}"
-          helm:
-            releaseName: "{{.appName}}"
-            valueFiles:
-              - $values/{{.config.path.path}}/values.yaml
-        - repoURL: git@github.com:lowc1012/argo-lab.git
-          targetRevision: HEAD
-          ref: values
+      source:
+        repoURL: git@github.com:lowc1012/argo-lab.git
+        path: "{{.config.path.path}}"
+        targetRevision: HEAD
       syncPolicy:
         syncOptions:
           - CreateNamespace=true

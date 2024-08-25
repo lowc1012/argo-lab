@@ -1,0 +1,9 @@
+appName: nodejs-app
+
+notification:
+  slack:
+    channels: []
+
+cluster:
+  name: in-cluster
+  namespace: nodejs-app
