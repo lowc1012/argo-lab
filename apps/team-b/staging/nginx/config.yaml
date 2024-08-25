@@ -5,7 +5,7 @@ helmChart:
   name: nginx
   repoURL: git@github.com:lowc1012/argo-lab.git
   version: HEAD
-  valueFiles: "values.yaml"
+  valueFile: values.yaml
 
 cluster:
   name: in-cluster

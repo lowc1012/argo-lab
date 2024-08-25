@@ -5,7 +5,7 @@ helmChart:
   name: nginx
   repoURL: git@github.com:lowc1012/argo-lab.git
   version: HEAD
-  valueFiles: "values.yaml test.yaml"
+  valueFile: values.yaml
 
 notification:
   slack:

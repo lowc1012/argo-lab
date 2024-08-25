@@ -27,7 +27,7 @@ spec:
               files:
                 - path: "apps/{{.team.path.basenameNormalized}}/staging/**/config.yaml"
               pathParamPrefix: config
-            selectors:
+            selector:
               matchExpressions:
                 - key: helmChart
                   operator: DoesNotExist
