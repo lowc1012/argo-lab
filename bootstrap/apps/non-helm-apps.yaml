@@ -27,10 +27,10 @@ spec:
               files:
                 - path: "apps/{{.team.path.basenameNormalized}}/staging/**/config.yaml"
               pathParamPrefix: config
-            selector:
-              matchExpressions:
-                - key: config.helmChart
-                  operator: DoesNotExist
+      selector:
+        matchExpressions:
+          - key: config.helmChart
+            operator: DoesNotExist
 
   template:
     metadata:
