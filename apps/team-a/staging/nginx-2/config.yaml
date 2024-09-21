@@ -9,7 +9,7 @@ helmChart:
 
 notification:
   slack:
-    channels: []
+    channels: [ "argocd-notif-test" ]
 
 cluster:
   name: in-cluster
