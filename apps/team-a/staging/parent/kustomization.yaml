@@ -1,0 +1,3 @@
+resources:
+  - nodejs-app
+  - nginx-2
