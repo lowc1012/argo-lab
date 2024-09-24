@@ -1,12 +1,5 @@
 appName: nginx-2
 
-# only for helm type application
-helmChart:
-  name: nginx
-  repoURL: git@github.com:lowc1012/argo-lab.git
-  version: HEAD
-  valueFile: values.yaml
-
 notification:
   slack:
     channels: [ "argocd-notif-test" ]
