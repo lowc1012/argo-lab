@@ -1,0 +1,11 @@
+appName: nginx-2
+
+helmChart:
+  name: nginx
+  repoURL: git@github.com:lowc1012/argo-lab.git
+  version: HEAD
+  valueFile: values.yaml
+
+cluster:
+  name: in-cluster
+  namespace: nginx-2
