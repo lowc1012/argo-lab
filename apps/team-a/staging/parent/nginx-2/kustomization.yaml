@@ -1,8 +1,0 @@
-# only for helm type application
-helmCharts:
-  - name: nginx
-    version: HEAD
-    valuesFile: values.yaml
-
-helmGlobals:
-  chartHome: ../../../../../charts

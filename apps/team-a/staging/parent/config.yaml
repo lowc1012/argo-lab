@@ -1,9 +1,0 @@
-appName: parent
-
-notification:
-  slack:
-    channels: [ "argocd-notif-test" ]
-
-cluster:
-  name: in-cluster
-  namespace: nginx-test
