@@ -1,5 +1,5 @@
 helmGlobals:
-  chartHome: charts
+  chartHome: ../../../../charts
 
 helmCharts:
   - name: nginx
