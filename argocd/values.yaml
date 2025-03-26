@@ -1,6 +1,6 @@
 global:
   image:
-    tag: "v2.13.1"
+    tag: "v2.10.11"
 
 server:
   insecure: true
@@ -8,4 +8,3 @@ server:
 configs:
   cm:
     kustomize.buildOptions: --enable-helm
-

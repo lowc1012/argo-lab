@@ -1,3 +1,6 @@
+helmGlobals:
+  chartHome: charts
+
 helmCharts:
   - name: nginx
     repo: git@github.com:lowc1012/argo-lab.git
