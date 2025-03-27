@@ -48,7 +48,7 @@ spec:
         namespace: "{{.cluster.namespace}}"
       sources:
         - repoURL: "{{.helmChart.repoURL}}"
-          path: charts/{{.helmChart.name}}
+          chart: "{{.helmChart.name}}"
           targetRevision: "{{.helmChart.version}}"
           helm:
             releaseName: "{{.appName}}"

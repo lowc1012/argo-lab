@@ -1,0 +1,11 @@
+appName: nginx-apps
+
+helmChart:
+  name: argocd-apps
+  repoURL: oci://ghcr.io/argoproj/argo-helm
+  version: 2.0.2
+  valueFile: apps.yaml
+
+cluster:
+  name: in-cluster
+  namespace: nginx-apps

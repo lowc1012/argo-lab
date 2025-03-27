@@ -1,0 +1,17 @@
+applications:
+  nginx-1:
+    source:
+      repoURL: git@github.com:lowc1012/argo-lab.git
+      targetRevision: HEAD
+      path: charts/nginx
+      helm:
+        valueFiles:
+          - nginx-1.yaml
+  nginx-2:
+    source:
+      repoURL: git@github.com:lowc1012/argo-lab.git
+      targetRevision: HEAD
+      path: charts/nginx
+      helm:
+        valueFiles:
+          - nginx-2.yaml
