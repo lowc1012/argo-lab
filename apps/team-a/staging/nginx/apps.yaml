@@ -1,5 +1,6 @@
 applications:
   nginx-1:
+    project: team-a
     source:
       repoURL: git@github.com:lowc1012/argo-lab.git
       targetRevision: HEAD
@@ -8,6 +9,7 @@ applications:
         valueFiles:
           - nginx-1.yaml
   nginx-2:
+    project: team-a
     source:
       repoURL: git@github.com:lowc1012/argo-lab.git
       targetRevision: HEAD
