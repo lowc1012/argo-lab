@@ -8,6 +8,9 @@ applications:
       helm:
         valueFiles:
           - nginx-1.yaml
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: nginx-1
   nginx-2:
     project: team-a
     source:
@@ -17,3 +20,6 @@ applications:
       helm:
         valueFiles:
           - nginx-2.yaml
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: nginx-2
