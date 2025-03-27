@@ -1,5 +1,0 @@
-appName: nodejs-app
-
-cluster:
-  name: in-cluster
-  namespace: nodejs-app

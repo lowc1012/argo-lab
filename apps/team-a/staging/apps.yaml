@@ -10,7 +10,7 @@ applications:
       helm:
         releaseName: nginx-1
         valueFiles:
-          - nginx-1.yaml
+          - apps/team-a/staging/nginx/nginx-1.yaml
     destination:
       server: https://kubernetes.default.svc
       namespace: nginx-1
@@ -24,16 +24,12 @@ applications:
         backoff:
           duration: 1m
         limit: 10
-  nginx-2:
+  nodejs-app:
     project: team-a
     source:
       repoURL: git@github.com:lowc1012/argo-lab.git
       targetRevision: HEAD
-      path: charts/nginx
-      helm:
-        releaseName: nginx-1
-        valueFiles:
-          - nginx-2.yaml
+      path: apps/team-a/staging/nodejs-app
     destination:
       server: https://kubernetes.default.svc
       namespace: nginx-2
