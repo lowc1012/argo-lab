@@ -8,6 +8,7 @@ applications:
       targetRevision: HEAD
       path: charts/nginx
       helm:
+        releaseName: nginx-1
         valueFiles:
           - nginx-1.yaml
     destination:
@@ -30,6 +31,7 @@ applications:
       targetRevision: HEAD
       path: charts/nginx
       helm:
+        releaseName: nginx-1
         valueFiles:
           - nginx-2.yaml
     destination:
