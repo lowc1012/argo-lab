@@ -1,5 +1,6 @@
 applications:
   nginx-1:
+    namespace: argocd
     additionalAnnotations:
       argocd.argoproj.io/sync-wave: "-1"
     project: team-a
@@ -25,6 +26,7 @@ applications:
           duration: 1m
         limit: 10
   nodejs-app:
+    namespace: argocd
     project: team-a
     source:
       repoURL: git@github.com:lowc1012/argo-lab.git
