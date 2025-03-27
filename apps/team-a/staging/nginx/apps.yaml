@@ -1,5 +1,7 @@
 applications:
   nginx-1:
+    additionalAnnotations:
+      argocd.argoproj.io/sync-wave: "-1"
     project: team-a
     source:
       repoURL: git@github.com:lowc1012/argo-lab.git
@@ -11,6 +13,16 @@ applications:
     destination:
       server: https://kubernetes.default.svc
       namespace: nginx-1
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: false
+        selfHeal: true
+      retry:
+        backoff:
+          duration: 1m
+        limit: 10
   nginx-2:
     project: team-a
     source:
@@ -23,3 +35,13 @@ applications:
     destination:
       server: https://kubernetes.default.svc
       namespace: nginx-2
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+      automated:
+        prune: false
+        selfHeal: true
+      retry:
+        backoff:
+          duration: 1m
+        limit: 10
