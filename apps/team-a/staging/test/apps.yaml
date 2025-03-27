@@ -11,7 +11,7 @@ applications:
       helm:
         releaseName: nginx-1
         valueFiles:
-          - apps/team-a/staging/nginx/nginx-1.yaml
+          - ../../apps/team-a/staging/test/nginx/nginx-1.yaml
     destination:
       server: https://kubernetes.default.svc
       namespace: nginx-1
@@ -31,7 +31,7 @@ applications:
     source:
       repoURL: git@github.com:lowc1012/argo-lab.git
       targetRevision: HEAD
-      path: apps/team-a/staging/nodejs-app
+      path: apps/team-a/staging/test/nodejs-app
     destination:
       server: https://kubernetes.default.svc
       namespace: nginx-2
