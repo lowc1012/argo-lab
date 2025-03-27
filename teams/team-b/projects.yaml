@@ -15,6 +15,6 @@ projects:
         kind: "*"
     sourceRepos:
       - git@github.com:lowc1012/argo-lab.git
-      - oci://ghcr.io/argoproj/argo-helm
+      - ghcr.io/argoproj/argo-helm
     additionalLabels: {}
     additionalAnnotations: {}
